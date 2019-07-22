@@ -1,0 +1,347 @@
+@font-face {
+  font-family: "Northumbria";
+  src: url("Northumbria.otf");
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #bbb;
+  font-family: "Northumbria", cursive;
+}
+
+.winModal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+  display: none;
+
+  h1 {
+    color: #fff;
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5em;
+  }
+
+  i {
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+  }
+
+  &.show {
+    display: block;
+  }
+}
+
+.game {
+  height: 914px;
+  width: 1500px;
+  margin: auto;
+  border-radius: 5px;
+  position: relative;
+}
+
+.field {
+  background-color: #fff;
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  position: relative;
+  transition: transform 250ms;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1),
+      0 0 0 40px rgba(255, 255, 255, 0.05), 0 0 0 30px rgba(255, 255, 255, 0.05);
+  }
+}
+
+.playerKnight {
+  position: absolute;
+  transform: scale(0.8);
+  margin: auto;
+}
+
+.topFields {
+  display: flex;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+
+  .field {
+    margin: 0 1em;
+    z-index: 1;
+  }
+
+  .start-finish {
+    background: url("img/cornerField-start-finish.png") no-repeat center center #fff;
+    background-size: cover;
+  }
+
+  .f-right {
+    background: url("img/f-right.png") no-repeat center center #fff;
+  }
+}
+
+.rightFields {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 125px;
+  right: 25px;
+
+  .field {
+    margin: 1em 0.9em;
+  }
+
+  .double {
+    background: url("img/specialCard-doubleDice.png") no-repeat center center #fff;
+    background-size: cover;
+  }
+
+  .f-bottom {
+    background: url("img/f-bottom.png") no-repeat center center #fff;
+  }
+}
+
+.bottomFields {
+  display: flex;
+  flex-direction: row-reverse;
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+
+  .field {
+    margin: 0 1em;
+    z-index: 1;
+  }
+
+  .bars {
+    background: url("img/cornerField-bars.png") no-repeat center center #fff;
+    background-size: cover;
+  }
+
+  .f-left {
+    background: url("img/f-left.png") no-repeat center center #fff;
+  }
+}
+
+.leftFields {
+  display: flex;
+  flex-direction: column-reverse;
+  position: absolute;
+  top: 125px;
+  left: 25px;
+
+  .field {
+    margin: 1em;
+  }
+
+  .sBars {
+    background: url("img/specialCard-bars.png") no-repeat center center #fff;
+    background-size: cover;
+  }
+
+  .f-top {
+    background: url("img/f-top.png") no-repeat center center #fff;
+  }
+}
+
+.special {
+  box-shadow: 0px 0px 30px 10px rgb(236, 109, 18);
+
+  &:hover {
+    box-shadow: 0px 0px 30px 10px rgb(236, 109, 18);
+  }
+}
+
+.rest {
+  background-color: #000;
+}
+
+.random {
+  background: url("img/specialCard-randomCard.png") no-repeat center center #fff;
+  background-size: cover;
+}
+
+.reverse {
+  background: url("img/specialCard-reverse.png") no-repeat center center #fff;
+  background-size: cover;
+}
+
+.center {
+  width: 1000px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .flip-card {
+    background-color: transparent;
+    width: 300px;
+    height: 400px;
+    perspective: 1000px;
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 1500ms cubic-bezier(0.17, -0.89, 0.51, 1.57);
+      transform-style: preserve-3d;
+
+      &.flipped {
+        transform: translateX(0%) rotateY(-180deg);
+      }
+
+      .flip-card-front,
+      .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 20px;
+      }
+
+      .flip-card-front {
+        background: url("img/flipCard-frontBg.jpg") no-repeat center center;
+        background-size: cover;
+      }
+
+      .flip-card-back {
+        background-color: #1f1f1f;
+        color: white;
+        transform: rotateY(180deg);
+        padding: 3em 1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        .close {
+          position: absolute;
+          top: 0.5em;
+          right: 1em;
+          cursor: pointer;
+          color: #e90029;
+        }
+      }
+    }
+  }
+
+  .prison {
+    width: 400px;
+    height: 250px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    &:hover {
+      animation: shake infinite 500ms;
+    }
+
+    .turnsLeftWrapperOne {
+      position: absolute;
+      left: 5%;
+      border-radius: 50%;
+      border: 2px solid blue;
+      color: blue;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      font-weight: bold;
+
+      .turnsLeftOne {
+        font-size: 1.5em;
+        margin: auto;
+      }
+    }
+
+    .turnsLeftWrapperTwo {
+      position: absolute;
+      left: 5%;
+      top: 20%;
+      border-radius: 50%;
+      border: 2px solid red;
+      color: red;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      font-weight: bold;
+
+      .turnsLeftTwo {
+        font-size: 1.5em;
+        margin: auto;
+      }
+    }
+
+    .playerKnight {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+    }
+  }
+
+  .dice {
+    width: 200px;
+    height: 200px;
+    background: url("img/dice-3.png") no-repeat center center;
+    background-size: cover;
+    cursor: pointer;
+    transition: background 500ms;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}

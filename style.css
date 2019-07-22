@@ -1,0 +1,466 @@
+@font-face {
+  font-family: "Northumbria";
+  src: url("Northumbria.otf");
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #bbb;
+  font-family: "Northumbria", cursive;
+}
+
+.winModal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+  display: none;
+}
+
+.winModal h1 {
+  color: #fff;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 5em;
+}
+
+.winModal i {
+  color: #fff;
+  cursor: pointer;
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+}
+
+.winModal.show {
+  display: block;
+}
+
+.game {
+  height: 914px;
+  width: 1500px;
+  margin: auto;
+  border-radius: 5px;
+  position: relative;
+}
+
+.field {
+  background-color: #fff;
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  position: relative;
+  -webkit-transition: -webkit-transform 250ms;
+  transition: -webkit-transform 250ms;
+  transition: transform 250ms;
+  transition: transform 250ms, -webkit-transform 250ms;
+}
+
+.field:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-box-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 0 40px rgba(255, 255, 255, 0.05), 0 0 0 30px rgba(255, 255, 255, 0.05);
+          box-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 0 40px rgba(255, 255, 255, 0.05), 0 0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+.playerKnight {
+  position: absolute;
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+  margin: auto;
+}
+
+.topFields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+}
+
+.topFields .field {
+  margin: 0 1em;
+  z-index: 1;
+}
+
+.topFields .start-finish {
+  background: url("img/cornerField-start-finish.png") no-repeat center center #fff;
+  background-size: cover;
+}
+
+.topFields .f-right {
+  background: url("img/f-right.png") no-repeat center center #fff;
+}
+
+.rightFields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  top: 125px;
+  right: 25px;
+}
+
+.rightFields .field {
+  margin: 1em 0.9em;
+}
+
+.rightFields .double {
+  background: url("img/specialCard-doubleDice.png") no-repeat center center #fff;
+  background-size: cover;
+}
+
+.rightFields .f-bottom {
+  background: url("img/f-bottom.png") no-repeat center center #fff;
+}
+
+.bottomFields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+}
+
+.bottomFields .field {
+  margin: 0 1em;
+  z-index: 1;
+}
+
+.bottomFields .bars {
+  background: url("img/cornerField-bars.png") no-repeat center center #fff;
+  background-size: cover;
+}
+
+.bottomFields .f-left {
+  background: url("img/f-left.png") no-repeat center center #fff;
+}
+
+.leftFields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+  position: absolute;
+  top: 125px;
+  left: 25px;
+}
+
+.leftFields .field {
+  margin: 1em;
+}
+
+.leftFields .sBars {
+  background: url("img/specialCard-bars.png") no-repeat center center #fff;
+  background-size: cover;
+}
+
+.leftFields .f-top {
+  background: url("img/f-top.png") no-repeat center center #fff;
+}
+
+.special {
+  -webkit-box-shadow: 0px 0px 30px 10px #ec6d12;
+          box-shadow: 0px 0px 30px 10px #ec6d12;
+}
+
+.special:hover {
+  -webkit-box-shadow: 0px 0px 30px 10px #ec6d12;
+          box-shadow: 0px 0px 30px 10px #ec6d12;
+}
+
+.rest {
+  background-color: #000;
+}
+
+.random {
+  background: url("img/specialCard-randomCard.png") no-repeat center center #fff;
+  background-size: cover;
+}
+
+.reverse {
+  background: url("img/specialCard-reverse.png") no-repeat center center #fff;
+  background-size: cover;
+}
+
+.center {
+  width: 1000px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  padding: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.center .flip-card {
+  background-color: transparent;
+  width: 300px;
+  height: 400px;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+}
+
+.center .flip-card .flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  -webkit-transition: -webkit-transform 1500ms cubic-bezier(0.17, -0.89, 0.51, 1.57);
+  transition: -webkit-transform 1500ms cubic-bezier(0.17, -0.89, 0.51, 1.57);
+  transition: transform 1500ms cubic-bezier(0.17, -0.89, 0.51, 1.57);
+  transition: transform 1500ms cubic-bezier(0.17, -0.89, 0.51, 1.57), -webkit-transform 1500ms cubic-bezier(0.17, -0.89, 0.51, 1.57);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.center .flip-card .flip-card-inner.flipped {
+  -webkit-transform: translateX(0%) rotateY(-180deg);
+          transform: translateX(0%) rotateY(-180deg);
+}
+
+.center .flip-card .flip-card-inner .flip-card-front,
+.center .flip-card .flip-card-inner .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  border-radius: 20px;
+}
+
+.center .flip-card .flip-card-inner .flip-card-front {
+  background: url("img/flipCard-frontBg.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.center .flip-card .flip-card-inner .flip-card-back {
+  background-color: #1f1f1f;
+  color: white;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  padding: 3em 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.center .flip-card .flip-card-inner .flip-card-back .close {
+  position: absolute;
+  top: 0.5em;
+  right: 1em;
+  cursor: pointer;
+  color: #e90029;
+}
+
+.center .prison {
+  width: 400px;
+  height: 250px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.center .prison:hover {
+  -webkit-animation: shake infinite 500ms;
+          animation: shake infinite 500ms;
+}
+
+.center .prison .turnsLeftWrapperOne {
+  position: absolute;
+  left: 5%;
+  border-radius: 50%;
+  border: 2px solid blue;
+  color: blue;
+  width: 40px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-weight: bold;
+}
+
+.center .prison .turnsLeftWrapperOne .turnsLeftOne {
+  font-size: 1.5em;
+  margin: auto;
+}
+
+.center .prison .turnsLeftWrapperTwo {
+  position: absolute;
+  left: 5%;
+  top: 20%;
+  border-radius: 50%;
+  border: 2px solid red;
+  color: red;
+  width: 40px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-weight: bold;
+}
+
+.center .prison .turnsLeftWrapperTwo .turnsLeftTwo {
+  font-size: 1.5em;
+  margin: auto;
+}
+
+.center .prison .playerKnight {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.center .dice {
+  width: 200px;
+  height: 200px;
+  background: url("img/dice-3.png") no-repeat center center;
+  background-size: cover;
+  cursor: pointer;
+  -webkit-transition: background 500ms;
+  transition: background 500ms;
+}
+
+@-webkit-keyframes shake {
+  0% {
+    -webkit-transform: translate(1px, 1px) rotate(0deg);
+            transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    -webkit-transform: translate(-1px, -2px) rotate(-1deg);
+            transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    -webkit-transform: translate(-3px, 0px) rotate(1deg);
+            transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    -webkit-transform: translate(3px, 2px) rotate(0deg);
+            transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    -webkit-transform: translate(1px, -1px) rotate(1deg);
+            transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    -webkit-transform: translate(-1px, 2px) rotate(-1deg);
+            transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    -webkit-transform: translate(-3px, 1px) rotate(0deg);
+            transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    -webkit-transform: translate(3px, 1px) rotate(-1deg);
+            transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    -webkit-transform: translate(-1px, -1px) rotate(1deg);
+            transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    -webkit-transform: translate(1px, 2px) rotate(0deg);
+            transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate(1px, -2px) rotate(-1deg);
+            transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@keyframes shake {
+  0% {
+    -webkit-transform: translate(1px, 1px) rotate(0deg);
+            transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    -webkit-transform: translate(-1px, -2px) rotate(-1deg);
+            transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    -webkit-transform: translate(-3px, 0px) rotate(1deg);
+            transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    -webkit-transform: translate(3px, 2px) rotate(0deg);
+            transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    -webkit-transform: translate(1px, -1px) rotate(1deg);
+            transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    -webkit-transform: translate(-1px, 2px) rotate(-1deg);
+            transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    -webkit-transform: translate(-3px, 1px) rotate(0deg);
+            transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    -webkit-transform: translate(3px, 1px) rotate(-1deg);
+            transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    -webkit-transform: translate(-1px, -1px) rotate(1deg);
+            transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    -webkit-transform: translate(1px, 2px) rotate(0deg);
+            transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate(1px, -2px) rotate(-1deg);
+            transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+/*# sourceMappingURL=style.css.map */
