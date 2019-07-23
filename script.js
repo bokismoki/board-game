@@ -540,6 +540,22 @@ function cardEffectThree() {
                 switchPlaces();
             } else if (currentFieldTwo === 16 || currentFieldTwo === 27) {
                 prisonFunc();
+            } else if (currentFieldTwo >= 32) {
+
+                currentFieldOne = 0;
+                currentFieldTwo = 0;
+                updateFields();
+
+                winModal.classList.add("show");
+                winModal.style.backgroundColor = "rgba(255,0,0, 0.8)";
+
+                winModalClose.addEventListener("click", () => {
+
+                    winModal.classList.remove("show");
+                    activePlayer = 1;
+
+                })
+
             }
 
         } else {
@@ -558,6 +574,22 @@ function cardEffectThree() {
                 switchPlaces();
             } else if (currentFieldOne === 16 || currentFieldOne === 27) {
                 prisonFunc();
+            } else if (currentFieldOne >= 32) {
+
+                currentFieldOne = 0;
+                currentFieldTwo = 0;
+                updateFields();
+
+                winModal.classList.add("show");
+                winModal.style.backgroundColor = "rgba(0,0,255, 0.8)";
+
+                winModalClose.addEventListener("click", () => {
+
+                    winModal.classList.remove("show");
+                    activePlayer = 2;
+
+                })
+
             }
 
         } else {
