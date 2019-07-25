@@ -71,6 +71,14 @@ dice.addEventListener("click", () => {
 
                 if (currentFieldOne >= 32) {
 
+                    turnsLeftInPrisonOne = 0;
+                    turnsLeftInPrisonTwo = 0;
+
+                    prison.innerHTML = `
+                        <div class="turnsLeftWrapperOne"><span class="turnsLeftOne">${turnsLeftInPrisonOne}</span></div>
+                        <div class="turnsLeftWrapperTwo"><span class="turnsLeftTwo">${turnsLeftInPrisonTwo}</span></div>
+                        <img src="img/prison.png">`;
+
                     currentFieldOne = 0;
                     currentFieldTwo = 0;
                     updateFields();
@@ -193,6 +201,14 @@ dice.addEventListener("click", () => {
                 currentFieldTwo += randomDice;
 
                 if (currentFieldTwo >= 32) {
+
+                    turnsLeftInPrisonOne = 0;
+                    turnsLeftInPrisonTwo = 0;
+
+                    prison.innerHTML = `
+                        <div class="turnsLeftWrapperOne"><span class="turnsLeftOne">${turnsLeftInPrisonOne}</span></div>
+                        <div class="turnsLeftWrapperTwo"><span class="turnsLeftTwo">${turnsLeftInPrisonTwo}</span></div>
+                        <img src="img/prison.png">`;
 
                     currentFieldTwo = 0;
                     currentFieldOne = 0;
@@ -461,6 +477,70 @@ function prisonFunc() {
 
 }
 
+function prisonFuncCardEffectFive() {
+
+    if (activePlayer === 1) {
+
+        diceActive = false;
+
+        updateFields();
+
+        setTimeout(() => {
+
+            currentFieldTwo = 16;
+
+            turnsLeftInPrisonTwo = 1;
+
+            resetFields();
+
+            prison.innerHTML = `
+                            <div class="turnsLeftWrapperOne"><span class="turnsLeftOne">${turnsLeftInPrisonOne}</span></div>
+                            <div class="turnsLeftWrapperTwo"><span class="turnsLeftTwo">${turnsLeftInPrisonTwo}</span></div>
+                            <img src="img/prison.png">
+                            <img src="img/playerKnight-2.png" class="playerKnight">`;
+
+            diceActive = true;
+
+            fields[currentFieldOne].innerHTML = `
+                            <img src="img/playerKnight-1.png" class="playerKnight">`;
+
+        }, 500)
+
+        activePlayer = 1;
+
+    } else if (activePlayer === 2) {
+
+        diceActive = false;
+
+        updateFields();
+
+        setTimeout(() => {
+
+            currentFieldOne = 16;
+
+            turnsLeftInPrisonOne = 1;
+
+            resetFields();
+
+            prison.innerHTML = `
+                            <div class="turnsLeftWrapperOne"><span class="turnsLeftOne">${turnsLeftInPrisonOne}</span></div>
+                            <div class="turnsLeftWrapperTwo"><span class="turnsLeftTwo">${turnsLeftInPrisonTwo}</span></div>
+                            <img src="img/prison.png">
+                            <img src="img/playerKnight-1.png" class="playerKnight">`;
+
+            diceActive = true;
+
+            fields[currentFieldTwo].innerHTML = `
+                            <img src="img/playerKnight-2.png" class="playerKnight">`;
+
+        }, 500)
+
+        activePlayer = 2;
+
+    }
+
+}
+
 // CARD EFFECT FUNCTIONS
 function cardEffectOne() {
 
@@ -474,7 +554,7 @@ function cardEffectOne() {
 
         updateFields();
 
-        if (currentFieldOne === 6 || currentFieldOne === 18) {
+        if (currentFieldOne === 6) {
             switchPlaces();
         }
 
@@ -484,7 +564,7 @@ function cardEffectOne() {
 
         updateFields();
 
-        if (currentFieldTwo === 6 || currentFieldTwo === 18) {
+        if (currentFieldTwo === 6) {
             switchPlaces();
         }
 
@@ -504,19 +584,11 @@ function cardEffectTwo() {
 
         updateFields();
 
-        if (currentFieldOne === 6 || currentFieldOne === 18) {
-            switchPlaces();
-        }
-
     } else if (activePlayer === 2) {
 
         currentFieldTwo -= 1;
 
         updateFields();
-
-        if (currentFieldTwo === 6 || currentFieldTwo === 18) {
-            switchPlaces();
-        }
 
     }
 
@@ -541,6 +613,9 @@ function cardEffectThree() {
             } else if (currentFieldTwo === 16 || currentFieldTwo === 27) {
                 prisonFunc();
             } else if (currentFieldTwo >= 32) {
+
+                turnsLeftInPrisonOne = 0;
+                turnsLeftInPrisonTwo = 0;
 
                 currentFieldOne = 0;
                 currentFieldTwo = 0;
@@ -575,6 +650,9 @@ function cardEffectThree() {
             } else if (currentFieldOne === 16 || currentFieldOne === 27) {
                 prisonFunc();
             } else if (currentFieldOne >= 32) {
+
+                turnsLeftInPrisonOne = 0;
+                turnsLeftInPrisonTwo = 0;
 
                 currentFieldOne = 0;
                 currentFieldTwo = 0;
@@ -665,7 +743,7 @@ function cardEffectFive() {
 
     if (activePlayer === 1) {
 
-        if (currentFieldOne >= currentFieldTwo) {
+        if (currentFieldOne >= currentFieldTwo && turnsLeftInPrisonTwo === 0) {
 
             if (currentFieldTwo > 0) {
 
@@ -677,17 +755,15 @@ function cardEffectFive() {
 
                 if (currentFieldTwo === 6 || currentFieldTwo === 18) {
                     switchPlaces();
-
-                    updateFields();
                 } else if (currentFieldTwo === 16 || currentFieldTwo === 27) {
-                    prisonFunc();
+                    prisonFuncCardEffectFive();
                 }
 
             } else if (currentFieldTwo <= 0) {
                 updateFields();
             }
 
-        } else if (currentFieldOne < currentFieldTwo) {
+        } else if (currentFieldOne < currentFieldTwo && turnsLeftInPrisonTwo === 0) {
 
             console.log("Player 2 moves -3");
 
@@ -697,17 +773,15 @@ function cardEffectFive() {
 
             if (currentFieldTwo === 6 || currentFieldTwo === 18) {
                 switchPlaces();
-
-                updateFields();
             } else if (currentFieldTwo === 16 || currentFieldTwo === 27) {
-                prisonFunc();
+                prisonFuncCardEffectFive();
             }
 
         }
 
     } else if (activePlayer === 2) {
 
-        if (currentFieldTwo >= currentFieldOne) {
+        if (currentFieldTwo >= currentFieldOne && turnsLeftInPrisonOne === 0) {
 
             if (currentFieldOne > 0) {
 
@@ -719,17 +793,15 @@ function cardEffectFive() {
 
                 if (currentFieldOne === 6 || currentFieldOne === 18) {
                     switchPlaces();
-
-                    updateFields();
                 } else if (currentFieldOne === 16 || currentFieldOne === 27) {
-                    prisonFunc();
+                    prisonFuncCardEffectFive();
                 }
 
             } else if (currentFieldOne <= 0) {
                 updateFields();
             }
 
-        } else if (currentFieldTwo < currentFieldOne) {
+        } else if (currentFieldTwo < currentFieldOne && turnsLeftInPrisonOne === 0) {
 
             if (currentFieldOne >= 3) {
 
@@ -741,10 +813,8 @@ function cardEffectFive() {
 
                 if (currentFieldOne === 6 || currentFieldOne === 18) {
                     switchPlaces();
-
-                    updateFields();
                 } else if (currentFieldOne === 16 || currentFieldOne === 27) {
-                    prisonFunc();
+                    prisonFuncCardEffectFive();
                 }
 
             } else if (currentFieldOne < 3) {
