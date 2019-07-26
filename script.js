@@ -477,7 +477,7 @@ function prisonFunc() {
 
 }
 
-function prisonFuncCardEffectFive() {
+function prisonFunc2() {
 
     if (activePlayer === 1) {
 
@@ -611,7 +611,7 @@ function cardEffectThree() {
             if (currentFieldTwo === 6 || currentFieldTwo === 18) {
                 switchPlaces();
             } else if (currentFieldTwo === 16 || currentFieldTwo === 27) {
-                prisonFunc();
+                prisonFunc2();
             } else if (currentFieldTwo >= 32) {
 
                 turnsLeftInPrisonOne = 0;
@@ -648,7 +648,7 @@ function cardEffectThree() {
             if (currentFieldOne === 6 || currentFieldOne === 18) {
                 switchPlaces();
             } else if (currentFieldOne === 16 || currentFieldOne === 27) {
-                prisonFunc();
+                prisonFunc2();
             } else if (currentFieldOne >= 32) {
 
                 turnsLeftInPrisonOne = 0;
@@ -697,7 +697,7 @@ function cardEffectFour() {
                 if (currentFieldTwo === 6 || currentFieldTwo === 18) {
                     switchPlaces();
                 } else if (currentFieldTwo === 16 || currentFieldTwo === 27) {
-                    prisonFunc();
+                    prisonFunc2();
                 }
 
             } else if (currentFieldTwo <= 0) {
@@ -721,7 +721,7 @@ function cardEffectFour() {
                 if (currentFieldOne === 6 || currentFieldOne === 18) {
                     switchPlaces();
                 } else if (currentFieldOne === 16 || currentFieldOne === 27) {
-                    prisonFunc();
+                    prisonFunc2();
                 }
 
             } else if (currentFieldOne <= 0) {
@@ -756,7 +756,7 @@ function cardEffectFive() {
                 if (currentFieldTwo === 6 || currentFieldTwo === 18) {
                     switchPlaces();
                 } else if (currentFieldTwo === 16 || currentFieldTwo === 27) {
-                    prisonFuncCardEffectFive();
+                    prisonFunc2();
                 }
 
             } else if (currentFieldTwo <= 0) {
@@ -764,6 +764,8 @@ function cardEffectFive() {
             }
 
         } else if (currentFieldOne < currentFieldTwo && turnsLeftInPrisonTwo === 0) {
+
+            if(currentFieldTwo >= 3) {
 
             console.log("Player 2 moves -3");
 
@@ -774,8 +776,14 @@ function cardEffectFive() {
             if (currentFieldTwo === 6 || currentFieldTwo === 18) {
                 switchPlaces();
             } else if (currentFieldTwo === 16 || currentFieldTwo === 27) {
-                prisonFuncCardEffectFive();
+                prisonFunc2();
             }
+
+        } else if (currentFieldTwo < 3) {
+            currentFieldTwo = 0;
+
+            updateFields();
+        }
 
         }
 
@@ -794,7 +802,7 @@ function cardEffectFive() {
                 if (currentFieldOne === 6 || currentFieldOne === 18) {
                     switchPlaces();
                 } else if (currentFieldOne === 16 || currentFieldOne === 27) {
-                    prisonFuncCardEffectFive();
+                    prisonFunc2();
                 }
 
             } else if (currentFieldOne <= 0) {
@@ -814,7 +822,7 @@ function cardEffectFive() {
                 if (currentFieldOne === 6 || currentFieldOne === 18) {
                     switchPlaces();
                 } else if (currentFieldOne === 16 || currentFieldOne === 27) {
-                    prisonFuncCardEffectFive();
+                    prisonFunc2();
                 }
 
             } else if (currentFieldOne < 3) {
